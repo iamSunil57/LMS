@@ -9,9 +9,7 @@ const SingleBook = () => {
   const [book, setBook] = useState({});
   console.log(id);
   const fetchBook = async () => {
-    const response = await axios.get(
-      `https://lms-0qhv.onrender.com/book/${id}`
-    );
+    const response = await axios.get(`http://localhost:3000/book/${id}`);
     if (response.status === 200) {
       setBook(response.data.data);
     }
@@ -19,9 +17,7 @@ const SingleBook = () => {
 
   //Delete Book:
   const handleDelete = async () => {
-    const response = await axios.delete(
-      `https://lms-0qhv.onrender.com/book/${id}`
-    );
+    const response = await axios.delete(`http://localhost:3000/book/${id}`);
     if (response.status === 200) {
       console.log("Book deleted successfully.");
       navigate("/");
@@ -31,6 +27,7 @@ const SingleBook = () => {
     }
   };
 
+  // Fetch the book details when the component mounts:
   useEffect(() => {
     fetchBook();
   }, []);
@@ -54,7 +51,7 @@ const SingleBook = () => {
         <div className="p-4">
           <p className="text-lg font-bold text-black truncate block capitalize">
             {book.bookName}
-          </p>{" "}
+          </p>
           <span className="text-gray-400 mr-3 uppercase text-xs">
             isbnNumber: {book.isbnNumber}
           </span>

@@ -1,0 +1,96 @@
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (name === "image" && files.length > 0) {
+      const file = files[0];
+      if (validateFile(file)) {
+        setImage(file);
+      }
+    } else {
+      setData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const validateFile = (file) => {
+    if (!file) {
+      setErrorMessage("");
+      return true;
+    }
+
+    const allowedExtensions = /\.(jpg|jpeg|png)$/i;
+    const maxSize = 1024 * 1024 * 1; // 1MB
+
+    if (!allowedExtensions.test(file.name)) {
+      setErrorMessage("Only images (jpg, jpeg, png) are allowed.");
+      return false;
+    }
+
+    if (file.size > maxSize) {
+      setErrorMessage("File size exceeds 1MB.");
+      return false;
+    }
+
+    setErrorMessage("");
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateFile(image)) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    // Delete the previous image if it exists:
+    if (data.imageUrl) {
+      try {
+        await axios.delete(`http://localhost:3000/book/${data.imageUrl}`);
+      } catch (error) {
+        console.error("Error deleting previous image", error);
+      }
+    }
+
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    if (image) {
+      formData.append("image", image);
+    }
+
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/book/${id}`,
+        formData
+      );
+
+      if (response.status === 200) {
+        navigate("/book/" + id);
+      } else {
+        alert("Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error updating book", error);
+    }
+  };
+
+  const fetchBook = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/book/${id}`);
+      if (response.status === 200) {
+        setData(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching book data", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBook();
+  }, [id]);

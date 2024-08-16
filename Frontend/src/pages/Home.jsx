@@ -6,7 +6,7 @@ const Home = () => {
   //Backend:
   const [books, setBooks] = useState([]);
   const fetchBooks = async () => {
-    const response = await axios.get("https://lms-0qhv.onrender.com/book");
+    const response = await axios.get("http://localhost:3000/book");
     if (response.status === 200) {
       setBooks(response.data.data);
       //'response.data' is same

@@ -43,7 +43,7 @@ app.post("/book", upload.single("image"), async (req, res) => {
   let fileName;
   if (!req.file) {
     fileName =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-crw0gMQo_4KCXAtx9fxfrNr7eFEBmI1X4g&s";
+      "https://assets.penguinrandomhouse.com/wp-content/uploads/2016/01/11104627/21Books-PRH_site_1200x628.jpg";
   } else {
     fileName = "http://localhost:3000/" + req.file.filename;
   }
@@ -167,8 +167,10 @@ app.delete("/book/:id", async (req, res) => {
   const { id } = req.params;
   const oldData = await Book.findById(id);
   const oldImagePath = oldData.imageUrl;
-  const localHostUrLength = "http://localhost:3000/".length;
-  const oldImageNewPath = oldImagePath.slice(localHostUrLength);
+  console.log("oldImagePath:", oldImagePath);
+  const localHostUrlLength = "http://localhost:3000/".length;
+  const oldImageNewPath = oldImagePath.slice(localHostUrlLength);
+
   console.log(oldImageNewPath);
   fs.unlink(`./storage/${oldImageNewPath}`, (err) => {
     if (err) {
@@ -183,6 +185,21 @@ app.delete("/book/:id", async (req, res) => {
   });
 });
 
+app.post("/storage", upload.single("image"), (req, res) => {
+  try {
+    // File upload successful
+    res
+      .status(200)
+      .json({ message: "File uploaded successfully", file: req.file });
+  } catch (error) {
+    // Handle errors
+    if (error) {
+      res.status(400).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "An unexpected error occurred" });
+    }
+  }
+});
 //To give access of storage folder only from nodejs
 app.use(express.static("./storage/"));
 

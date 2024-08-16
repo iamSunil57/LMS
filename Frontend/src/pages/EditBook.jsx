@@ -16,7 +16,7 @@ const EditBook = () => {
     publishedAt: "",
   });
 
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +35,7 @@ const EditBook = () => {
     formData.append("image", image);
 
     const response = await axios.patch(
-      `https://lms-0qhv.onrender.com/book/${id}`,
+      `http://localhost:3000/book/${id}`,
       formData
     );
     if (response.status === 200) {
@@ -47,9 +47,7 @@ const EditBook = () => {
 
   // To keep previous data in edit form:
   const fetchBook = async () => {
-    const response = await axios.get(
-      "https://lms-0qhv.onrender.com/book/" + id
-    );
+    const response = await axios.get("http://localhost:3000/book/" + id);
     if (response.status === 200) {
       console.log(response.data.data);
       setData(response.data.data);
@@ -233,7 +231,7 @@ const EditBook = () => {
                     <div className="mb-4">
                       <img
                         src={data.imageUrl}
-                        alt="Old book cover"
+                        alt="image"
                         className="w-full h-auto rounded-md"
                       />
                     </div>
@@ -246,7 +244,6 @@ const EditBook = () => {
                     name="image"
                     type="file"
                     required=""
-                    // value={files[0]}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                     onChange={(e) => setImage(e.target.files[0])}
                   />
