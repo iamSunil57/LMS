@@ -10,9 +10,7 @@ const SingleBook = () => {
   const [book, setBook] = useState({});
   console.log(id);
   const fetchBook = async () => {
-    const response = await axios.get(
-      `https://lms-xihm.onrender.com/book/${id}`
-    );
+    const response = await axios.get(`${backendUrl}/book/${id}`);
     if (response.status === 200) {
       setBook(response.data.data);
     }
@@ -20,7 +18,7 @@ const SingleBook = () => {
 
   //Delete Book:
   const handleDelete = async () => {
-    const response = await axios.delete(`https://lms-xihm.onrender.com/${id}`);
+    const response = await axios.delete(`${backendUrl}/${id}`);
     if (response.status === 200) {
       console.log("Book deleted successfully.");
       navigate("/");

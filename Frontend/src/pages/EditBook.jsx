@@ -35,10 +35,7 @@ const EditBook = () => {
     });
     formData.append("image", image);
 
-    const response = await axios.patch(
-      `https://lms-xihm.onrender.com//book/${id}`,
-      formData
-    );
+    const response = await axios.patch(`${backendUrl}/book/${id}`, formData);
     if (response.status === 200) {
       navigate("/book/" + id);
     } else {
@@ -48,9 +45,7 @@ const EditBook = () => {
 
   // To keep previous data in edit form:
   const fetchBook = async () => {
-    const response = await axios.get(
-      "https://lms-xihm.onrender.com//book/" + id
-    );
+    const response = await axios.get(`${backendUrl}/book/` + id);
     if (response.status === 200) {
       console.log(response.data.data);
       setData(response.data.data);

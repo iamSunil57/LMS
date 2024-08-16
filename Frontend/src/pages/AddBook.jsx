@@ -32,10 +32,7 @@ const AddBook = () => {
       formData.append(key, value);
     });
     formData.append("image", image);
-    const response = await axios.post(
-      "https://lms-xihm.onrender.com//book",
-      formData
-    );
+    const response = await axios.post(`${backendUrl}/book`, formData);
     if (response.status === 201) {
       navigate("/");
     } else {
