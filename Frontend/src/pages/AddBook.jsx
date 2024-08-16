@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "./config";
 
 const AddBook = () => {
   const navigate = useNavigate();
@@ -31,10 +32,7 @@ const AddBook = () => {
       formData.append(key, value);
     });
     formData.append("image", image);
-    const response = await axios.post(
-      "https://lms-xihm.onrender.com//book",
-      formData
-    );
+    const response = await axios.post(`${backendUrl}/book`, formData);
     if (response.status === 201) {
       navigate("/");
     } else {

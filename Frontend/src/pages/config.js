@@ -1,1 +1,1 @@
-export const backendUrl = "renderUrl";
+export const backendUrl = "https://lms-xihm.onrender.com/";
