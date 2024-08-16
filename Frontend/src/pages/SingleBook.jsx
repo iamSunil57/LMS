@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { backendUrl } from "./config";
 
 const SingleBook = () => {
   const { id } = useParams();
@@ -10,7 +9,9 @@ const SingleBook = () => {
   const [book, setBook] = useState({});
   console.log(id);
   const fetchBook = async () => {
-    const response = await axios.get(`${backendUrl}/book/${id}`);
+    const response = await axios.get(
+      `https://lms-xihm.onrender.com/book/${id}`
+    );
     if (response.status === 200) {
       setBook(response.data.data);
     }
@@ -18,7 +19,7 @@ const SingleBook = () => {
 
   //Delete Book:
   const handleDelete = async () => {
-    const response = await axios.delete(`${backendUrl}/${id}`);
+    const response = await axios.delete(`https://lms-xihm.onrender.com/${id}`);
     if (response.status === 200) {
       console.log("Book deleted successfully.");
       navigate("/");

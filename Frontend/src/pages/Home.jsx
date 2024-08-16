@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import axios from "axios";
-import { backendUrl } from "./config";
+
 const Home = () => {
   //Backend:
   const [books, setBooks] = useState([]);
   const fetchBooks = async () => {
-    const response = await axios.get(`${backendUrl}/book`);
+    const response = await axios.get("https://lms-xihm.onrender.com/book");
     if (response.status === 200) {
       setBooks(response.data.data);
       //'response.data' is same
