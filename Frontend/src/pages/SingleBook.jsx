@@ -19,7 +19,7 @@ const SingleBook = () => {
 
   //Delete Book:
   const handleDelete = async () => {
-    const response = await axios.delete(`https://lms-xihm.onrender.com/${id}`);
+    const response = await axios.delete(`https://lms-xihm.onrender.com/book/${id}`);
     if (response.status === 200) {
       console.log("Book deleted successfully.");
       navigate("/");
