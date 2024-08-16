@@ -10,7 +10,7 @@ const SingleBook = () => {
   const [book, setBook] = useState({});
   console.log(id);
   const fetchBook = async () => {
-    const response = await axios.get(`${backendUrl}//book/${id}`);
+    const response = await axios.get(`${backendUrl}/book/${id}`);
     if (response.status === 200) {
       setBook(response.data.data);
     }
