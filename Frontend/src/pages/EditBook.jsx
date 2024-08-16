@@ -35,7 +35,7 @@ const EditBook = () => {
     formData.append("image", image);
 
     const response = await axios.patch(
-      `http://localhost:3000/book/${id}`,
+      `https://lms-xihm.onrender.com//book/${id}`,
       formData
     );
     if (response.status === 200) {
@@ -47,7 +47,9 @@ const EditBook = () => {
 
   // To keep previous data in edit form:
   const fetchBook = async () => {
-    const response = await axios.get("http://localhost:3000/book/" + id);
+    const response = await axios.get(
+      "https://lms-xihm.onrender.com//book/" + id
+    );
     if (response.status === 200) {
       console.log(response.data.data);
       setData(response.data.data);

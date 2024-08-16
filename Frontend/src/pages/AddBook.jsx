@@ -4,37 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddBook = () => {
-  // const [bookName, setBookName] = useState("");
-  // const [bookPrice, setBookPrice] = useState("");
-  // const [isbnNumber, setIsbnNumber] = useState("null");
-  // const [authorName, setAuthorName] = useState("");
-  // const [publication, setPublication] = useState("");
-  // const [publishedAt, setPublishedAt] = useState("");
-  // const [image, setImage] = useState("null");
-  // console.log(bookName, bookPrice, image);
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const response = await axios.post(
-  //     "http://localhost:3000/book",
-  //     {
-  //       bookName,
-  //       bookPrice,
-  //       isbnNumber,
-  //       authorName,
-  //       publication,
-  //       publishedAt,
-  //       image,
-  //     },
-  //     {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     }
-  //   );
-  // };
-  //   console.log(response);
-
   const navigate = useNavigate();
   const [data, setData] = useState({
     bookName: "",
@@ -62,7 +31,10 @@ const AddBook = () => {
       formData.append(key, value);
     });
     formData.append("image", image);
-    const response = await axios.post("http://localhost:3000/book", formData);
+    const response = await axios.post(
+      "https://lms-xihm.onrender.com//book",
+      formData
+    );
     if (response.status === 201) {
       navigate("/");
     } else {
